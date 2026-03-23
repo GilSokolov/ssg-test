@@ -1,8 +1,8 @@
 {
   "routes": {
-    "/": {},
-    "/about": {},
-    "/contact-us": {},
-    "/home": {}
+    "/ssg-test": {},
+    "/ssg-test/about": {},
+    "/ssg-test/contact-us": {},
+    "/ssg-test/home": {}
   }
 }

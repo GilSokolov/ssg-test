@@ -38,7 +38,8 @@
             },
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "baseHref": "/ssg-test"
           },
           "configurations": {
             "production": {
