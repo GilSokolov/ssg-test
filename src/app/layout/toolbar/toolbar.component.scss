@@ -1,0 +1,53 @@
+.toolbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background-color: #24292e;
+  color: white;
+
+  .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  button {
+    background-color: #24292e;
+    border: none;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  #toggle-sidenav {
+    display: none;
+  }
+}
+
+.menu_icon {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: white;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.open .bar1 {
+  transform: translate(0, 11px) rotate(-45deg);
+}
+
+.open .bar2 {
+  opacity: 0;
+}
+
+.open .bar3 {
+  transform: translate(0, -11px) rotate(45deg);
+}

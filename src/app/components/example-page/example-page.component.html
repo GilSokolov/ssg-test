@@ -1,0 +1,16 @@
+@if (example) {
+  <h1>{{ example.title }}</h1>
+  <markdown [data]="example.description"></markdown>
+
+  <div class="demo-layout">
+    <demo-card title="Live Demo">
+      <ng-template #demoContainer></ng-template>
+    </demo-card>
+
+    <demo-card title="Result">
+      <result-viewer [value]="formValue"></result-viewer>
+    </demo-card>
+  </div>
+
+  <code-tabs [codeAssets]="example.assets"> </code-tabs>
+}

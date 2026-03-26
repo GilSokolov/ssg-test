@@ -1,0 +1,14 @@
+<nav class="sidebar" [ngClass]="{ open: sidenav.isOpen$ | async }">
+  @for (group of groupedExamples; track $index) {
+    <div class="category">
+      <div class="category-title">{{ group.name }}</div>
+      <ul>
+        @for (ex of group.examples; track $index) {
+          <li>
+            <a [routerLink]="['examples', ex.id]" (click)="sidenav.close()">{{ ex.title }}</a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</nav>

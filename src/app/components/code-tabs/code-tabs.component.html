@@ -1,0 +1,7 @@
+<mat-tab-group mat-stretch-tabs="false" dynamicHeight>
+  @for (asset of codeAssets; track asset.label) {
+    <mat-tab [label]="asset.label">
+      <markdown [data]="asset.content | language: asset.language"></markdown>
+    </mat-tab>
+  }
+</mat-tab-group>

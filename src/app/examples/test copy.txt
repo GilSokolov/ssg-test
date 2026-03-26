@@ -1,0 +1,337 @@
+Headers
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
+
+Alternatively, for H1 and H2, an underline-ish style:
+
+Alt-H1
+======
+
+Alt-H2
+------
+
+Emphasis
+Emphasis, aka italics, with *asterisks* or _underscores_.
+
+Strong emphasis, aka bold, with **asterisks** or __underscores__.
+
+Combined emphasis with **asterisks and _underscores_**.
+
+Strikethrough uses two tildes. ~~Scratch this.~~
+
+Lists
+In this example, leading and trailing spaces are shown with with dots (⋅)
+
+1. First ordered list item
+2. Another item
+⋅⋅⋅* Unordered sub-list.
+1. Actual numbers don't matter, just that it's a number
+⋅⋅⋅1. Ordered sub-list
+4. And another item.
+
+⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).
+
+⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅
+⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
+⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
+
+
+* Unordered list can use asterisks
+- Or minuses
++ Or pluses
+
+
+Links
+There are two ways to create links.
+
+[I'm an inline-style link](https://www.google.com)
+
+[I'm an inline-style link with title](https://www.google.com "Google's Homepage")
+
+[I'm a reference-style link][Arbitrary case-insensitive reference text]
+
+[I'm a relative reference to a repository file](../blob/master/LICENSE)
+
+[You can use numbers for reference-style link definitions][1]
+
+Or leave it empty and use the [link text itself].
+
+URLs and URLs in angle brackets will automatically get turned into links.
+http://www.example.com or <http://www.example.com> and sometimes
+example.com (but not on GitHub, for example).
+
+Some text to show that the reference links can follow later.
+
+[arbitrary case-insensitive reference text]: https://www.mozilla.org
+[1]: http://slashdot.org
+[link text itself]: http://www.reddit.com
+
+
+Here's our logo (hover to see the title text):
+
+Inline-style:
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+
+Reference-style:
+![alt text][logo]
+
+[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
+
+
+Code and Syntax Highlighting
+Inline `code` has `back-ticks around` it.
+
+  ```typescript
+
+var s = "JavaScript syntax highlighting";
+alert(s);
+```
+
+```python
+s = "Python syntax highlighting"
+print s
+```
+
+```
+No language indicated, so no syntax highlighting.
+But let's throw in a <b>tag</b>.
+```
+
+Tables
+Colons can be used to align columns.
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+There must be at least 3 dashes separating each header cell.
+The outer pipes (|) are optional, and you don't need to make the
+raw Markdown line up prettily. You can also use inline Markdown.
+
+Markdown | Less | Pretty
+--- | --- | ---
+*Still* | `renders` | **nicely**
+1 | 2 | 3
+
+
+Blockquotes
+> Blockquotes are very handy in email to emulate reply text.
+> This line is part of the same quote.
+
+Quote break.
+
+> This is a very long line that will still be quoted properly when it wraps. Oh boy let's kee
+
+Horizontal Rule
+Three or more...
+
+---
+
+Hyphens
+
+***
+
+Asterisks
+___
+
+Underscores
+
+```css
+.product-form {
+  width: 400px;
+
+  .app-selection {
+    flex-direction: row;
+    align-items: center;
+
+    .label-text {
+      margin-left: 8px;
+    }
+
+    .description {
+      color: #666;
+      font-size: 0.9rem;
+      margin-left: auto;
+    }
+  }
+
+  .preforms-input-field {
+    width: 100%;
+    border: 0;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .form-end {
+    height: 20px;
+  }
+}
+```
+
+```html
+<preforms-dynamic-form
+  className="product-form"
+  (submittedData)="logData($event)"
+  [fields]="fields"
+/>
+```
+  ```typescript
+
+import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
+import { DynamicFormComponent } from '@preforms/angular/core/dynamic-form.component';
+import { DYNAMIC_FORM_FETCHER, FIELD_ICON_TEMPLATES } from '@preforms/angular/core/tokens';
+import { NATIVE_FORM_ELEMENTS } from '@preforms/angular/native/fields';
+import { FieldIconEmojiComponent } from '@preforms/angular/native/fields/field-icon-emoji.component';
+import {
+  CheckboxField,
+  ConfirmButton,
+  Fieldset,
+  FormDescription,
+  FormDivider,
+  FormElement,
+  FormField,
+  FormFieldOption,
+  FormImage,
+  FormRow,
+  FormTitle,
+  FormTitleLevel,
+  NumberField,
+  RadioField,
+  SubmitButton,
+  TextareaField,
+} from '@preforms/ts';
+import { Observable, of } from 'rxjs';
+
+@Component({
+  selector: 'app-order-form-demo',
+  template: `<preforms-dynamic-form
+    className="product-form"
+    (submittedData)="logData($event)"
+    [fields]="fields"
+  /> `,
+  styleUrl: './order-form-demo.component.scss',
+  imports: [DynamicFormComponent],
+  encapsulation: ViewEncapsulation.None,
+  providers: [
+    NATIVE_FORM_ELEMENTS,
+    {
+      provide: FIELD_ICON_TEMPLATES,
+      useValue: FieldIconEmojiComponent,
+    },
+    {
+      provide: DYNAMIC_FORM_FETCHER,
+      useValue: (url: string): Observable<Partial<FormElement>[]> => {
+        const params = new URLSearchParams(url.split('?')[1]);
+
+        const amount = Number(params.get('amount') ?? 1);
+        const side = params.get('side');
+
+        const base = 9.34;
+        const sides = { fries: 5, rice: 4.5 };
+
+        const price = (base + (sides[side as keyof typeof sides] ?? 0)) * amount;
+
+        return of([
+          {
+            id: 'order-form-submit-btn',
+            label: `Add $${price.toFixed(2)}`,
+          },
+        ]);
+      },
+    },
+  ],
+})
+export class OrderFormDemoComponent {
+  @Output() formChange = new EventEmitter<any>();
+
+  fields = [
+    new NumberField({ key: 'id', value: 2316, hidden: true }),
+    new FormImage({
+      src: '/chickengarlic.jpg',
+      width: '400px',
+    }),
+    new FormTitle('Garlic Knot Chicken Breasts'),
+    new FormTitle('$9.34 🏷️', FormTitleLevel.H2),
+    new FormDescription('Tender chicken breast with garlic, rosemary, and a hint of lemon.'),
+
+    new Fieldset('Sides Dish', [
+      new RadioField({
+        key: 'side',
+        options: [
+          new FormFieldOption({ value: 'na', label: 'No Side', description: '$0.00' }),
+          new FormFieldOption({ value: 'fries', label: 'Fries', description: '$5.00' }),
+          new FormFieldOption({ value: 'rice', label: 'Rice', description: '$4.50' }),
+        ],
+        className: 'app-selection',
+        required: true,
+      }),
+    ]),
+
+    new Fieldset('Cutlery', [
+      new CheckboxField({
+        key: 'cutlery',
+        label: 'Add cutlery',
+        className: 'app-selection',
+      }),
+    ]),
+
+    new TextareaField({
+      key: 'notes',
+      placeholder: 'it may not be possible to meetall requests',
+    }),
+
+    new FormDivider({ className: 'form-end' }),
+
+    new FormRow({
+      position: 'space-between',
+      fields: [
+        new NumberField({
+          key: 'amount',
+          label: '',
+          value: 1,
+          readonly: true,
+          min: 1,
+          max: 5,
+          icons: [
+            {
+              name: '➕',
+              side: 'left',
+              action: 'increment',
+            },
+            {
+              name: '➖',
+              side: 'right',
+              action: 'decrement',
+            },
+          ],
+          className: 'amount-control',
+        }),
+        new SubmitButton({
+          id: 'order-form-submit-btn',
+          label: 'Add $9.34',
+          className: 'primary',
+          triggers: [
+            {
+              on: 'change',
+              action: 'fetch',
+              fetchUrl: '/api/calculate-price?amount={amount}&side={side}',
+              sourceField: ['side', 'amount'],
+              mode: 'patch',
+            },
+          ],
+        }),
+      ],
+    }),
+  ];
+
+  logData(data: any) {
+    this.formChange.emit(data);
+  }
+}
+
+```

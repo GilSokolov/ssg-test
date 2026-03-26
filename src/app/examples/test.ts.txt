@@ -1,0 +1,151 @@
+import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
+import { DynamicFormComponent } from '@preforms/angular/core/dynamic-form.component';
+import { DYNAMIC_FORM_FETCHER, FIELD_ICON_TEMPLATES } from '@preforms/angular/core/tokens';
+import { NATIVE_FORM_ELEMENTS } from '@preforms/angular/native/fields';
+import { FieldIconEmojiComponent } from '@preforms/angular/native/fields/field-icon-emoji.component';
+import {
+  CheckboxField,
+  ConfirmButton,
+  Fieldset,
+  FormDescription,
+  FormDivider,
+  FormElement,
+  FormField,
+  FormFieldOption,
+  FormImage,
+  FormRow,
+  FormTitle,
+  FormTitleLevel,
+  NumberField,
+  RadioField,
+  SubmitButton,
+  TextareaField,
+} from '@preforms/ts';
+import { Observable, of } from 'rxjs';
+
+@Component({
+  selector: 'app-order-form-demo',
+  template: `<preforms-dynamic-form
+    className="product-form"
+    (submittedData)="logData($event)"
+    [fields]="fields"
+  /> `,
+  styleUrl: './order-form-demo.component.scss',
+  imports: [DynamicFormComponent],
+  encapsulation: ViewEncapsulation.None,
+  providers: [
+    NATIVE_FORM_ELEMENTS,
+    {
+      provide: FIELD_ICON_TEMPLATES,
+      useValue: FieldIconEmojiComponent,
+    },
+    {
+      provide: DYNAMIC_FORM_FETCHER,
+      useValue: (url: string): Observable<Partial<FormElement>[]> => {
+        const params = new URLSearchParams(url.split('?')[1]);
+
+        const amount: number = Number(params.get('amount') ?? 1);
+        const side = params.get('side');
+
+        const base = 9.34;
+        const sides = { fries: 5, rice: 4.5 };
+
+        const price = (base + (sides[side as keyof typeof sides] ?? 0)) * amount;
+
+        return of([
+          {
+            id: 'order-form-submit-btn',
+            label: `Add $${price.toFixed(2)}`,
+          },
+        ]);
+      },
+    },
+  ],
+})
+export class OrderFormDemoComponent {
+  @Output() formChange = new EventEmitter<any>();
+
+  fields = [
+    new NumberField({ key: 'id', value: 2316, hidden: true }),
+    new FormImage({
+      src: '/chickengarlic.jpg',
+      width: '400px',
+    }),
+    new FormTitle('Garlic Knot Chicken Breasts'),
+    new FormTitle('$9.34 🏷️', FormTitleLevel.H2),
+    new FormDescription('Tender chicken breast with garlic, rosemary, and a hint of lemon.'),
+
+    new Fieldset('Sides Dish', [
+      new RadioField({
+        key: 'side',
+        options: [
+          new FormFieldOption({ value: 'na', label: 'No Side', description: '$0.00' }),
+          new FormFieldOption({ value: 'fries', label: 'Fries', description: '$5.00' }),
+          new FormFieldOption({ value: 'rice', label: 'Rice', description: '$4.50' }),
+        ],
+        className: 'app-selection',
+        required: true,
+      }),
+    ]),
+
+    new Fieldset('Cutlery', [
+      new CheckboxField({
+        key: 'cutlery',
+        label: 'Add cutlery',
+        className: 'app-selection',
+      }),
+    ]),
+
+    new TextareaField({
+      key: 'notes',
+      placeholder: 'it may not be possible to meetall requests',
+    }),
+
+    new FormDivider({ className: 'form-end' }),
+
+    new FormRow({
+      position: 'space-between',
+      fields: [
+        new NumberField({
+          key: 'amount',
+          label: '',
+          value: 1,
+          readonly: true,
+          min: 1,
+          max: 5,
+          icons: [
+            {
+              name: '➕',
+              side: 'left',
+              action: 'increment',
+            },
+            {
+              name: '➖',
+              side: 'right',
+              action: 'decrement',
+            },
+          ],
+          className: 'amount-control',
+        }),
+        new SubmitButton({
+          id: 'order-form-submit-btn',
+          label: 'Add $9.34',
+          className: 'primary',
+          triggers: [
+            {
+              on: 'change',
+              action: 'fetch',
+              fetchUrl: '/api/calculate-price?amount={amount}&side={side}',
+              sourceField: ['side', 'amount'],
+              mode: 'patch',
+            },
+          ],
+        }),
+      ],
+    }),
+  ];
+
+  logData(data: any) {
+    this.formChange.emit(data);
+  }
+}

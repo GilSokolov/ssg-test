@@ -1,0 +1,25 @@
+.layout {
+  display: flex;
+  position: fixed;
+  transition: left 0.1s;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  padding: 20px;
+  overflow: auto;
+  flex: 1;
+}
+
+@media only screen and (max-width: 800px) {
+  .layout {
+    left: -250px;
+    width: calc(100vw + 250px);
+  }
+
+  .layout.open {
+    left: 0;
+  }
+}

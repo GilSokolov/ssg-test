@@ -1,0 +1,10 @@
+<header class="toolbar">
+  <div class="title">Preforms Showcase</div>
+  <button id="toggle-sidenav" (click)="sidenav.toggle()">
+    <div class="menu_icon" [ngClass]="{ open: sidenav.isOpen$ | async }">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
+  </button>
+</header>
